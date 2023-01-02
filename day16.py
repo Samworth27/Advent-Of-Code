@@ -1,95 +1,165 @@
-import random
+import os
+from collections import namedtuple
+from pyvis.network import Network
 
-file = open('day16-example.txt')
+pathNode = namedtuple('pathNode', ('room', 'time'))
 
 
-class Valve():
-    def __init__(self, name, flow_rate):
-        self.name = name
-        self.flow_rate = flow_rate
-        self.on = False
-        self.tunnels = []
+def clearDisplay():
+    os.system('clear')
 
-    def accessible_valves(self):
-        return [i.other_valve(self) for i in self.tunnels]
+def initGraph(file):
+    graph_edges = {}
+    rates = {}
+    valves = set()
     
-    def valve_accessible(self, valve):
-        for tunnel in self.tunnels:
-            if tunnel.other_valve(self) == valve:
-                return True
-        return False
+    for line in file:
+        input = [i.strip() for i in line.split(' ')]
+        name = input[1]
+        rate = int(input[4][5:-1])
+        node_edges = [i.strip(',') for i in input[9:]]
+        graph_edges[name] = node_edges
+        rates[name] = rate
+        if rate > 0:
+            valves.add(name)
+        
+    return graph_edges, rates, valves
 
-    def link_valve(self, valve):
-        if not self.valve_accessible(valve):
-            new_tunnel = Tunnel(self, valve)
-            self.tunnels.append(new_tunnel)
-            valve.tunnels.append(new_tunnel)
-
-    def __repr__(self):
-        return f"{self.name}({self.flow_rate})[{'on' if self.on else 'off'}]"
-
-
-class Tunnel():
-    def __init__(self, valve1, valve2):
-        self.valve1 = valve1
-        self.valve2 = valve2
-
-    def other_valve(self, entry):
-        if entry == self.valve1:
-            return self.valve2
-        else:
-            return self.valve1
-    def __repr__(self):
-        return (f"{self.valve1.name} -> {self.valve2.name}")
-
-valves = {}
-tunnels_to_create = []
-for line in file:
-    valve_string, tunnel_string = line.strip().split(';')
-    valve_name, flow_string = [valve_string.strip().split(' ')[i]
-                               for i in [1, -1]]
-    flow_rate = int(flow_string.split('=')[-1])
-    valves[valve_name] = Valve(valve_name, flow_rate)
-    tunnel_connections = [i.strip(',')
-                          for i in tunnel_string.strip().split(' ')[4:]]
-    tunnels_to_create.append(
-        (valve_name, tunnel_connections))
-
-
-for tunnel_tuple in tunnels_to_create:
-    valve1 = tunnel_tuple[0]
-    for valve2 in tunnel_tuple[1]:
-        valves[valve1].link_valve(valves[valve2])
-
-def randomMove(valve):
-    return random.choice(valve.tunnels).other_valve(valve)
-
-def openValve(valve):
-    valve.on = True
-    return valve
+def floydWarshall(edges, filter_nodes = None):
+        
+    distances = {x:{y:float('inf') for y in edges} for x in edges}
     
-def getPressureRelief():
-    return sum([valves[i].flow_rate for i in valves if valves[i].on])
+    for node, node_edges in edges.items():
+        for node2 in node_edges:
+            distances[node][node2] = 1
+        distances[node][node] = 0
+        
+    for k in edges:
+        for i in edges:
+            for j in edges:
+                ij = distances[i][j]
+                ik = distances[i][k]
+                kj = distances[k][j]
+                
+                if ij > ik + kj:
 
-def takeAction(random_action=True):
-    if random_action:
-        if current_valve.on:
-            action = randomMove
-        else:
-            action = random.choice([randomMove,openValve])
+                    distances[i][j] = ik + kj
+
     
-    return action(current_valve)
+    output = {x:{y:distances[x][y] for y in filter_nodes} for x in filter_nodes} or distances
+
+    return output
+
+def dfsPart1(node, valves, time, path = []):
+    if path == []:
+        path = [pathNode(node,time)]
+   
+    if len(valves) == 0:
+        time = 0
+
+    if time < 0:
+        path.pop()
+        time = 0
+    
+    if time == 0:
+            
+        relief = 0
+        for i in path:
+            relief += i.time * rates[i.room]
+        return relief, path
+
+    best_score = 0
+    best_path = []
+    
+    for i in valves:
+        new_time = time - (distance[node][i] + 1)
+        new_path = [*path, pathNode(i,new_time)]
+        
+        new_valves = valves - {i}
+        
+        bs,bp = dfsPart1(i, new_valves, new_time, new_path)
+        if bs > best_score:
+            best_score = bs
+            best_path = bp
+
+    return best_score, best_path
+
+def dfsPart2(human_path, node, valves, time, path = []):
+    if path == []:
+        path = [pathNode(node,time)]
+   
+    if len(valves) == 0:
+        time = 0
+
+    if time < 0:
+        path.pop()
+        time = 0
+    
+    if time == 0:
+            
+        relief = 0
+        hp = {p.room: p.time for p in human_path}
+        ep = {p.room: p.time for p in path}
+        rooms = set([*hp,*ep])
+        
+        for i in rooms:
+            if i in hp and i in ep:
+                relief += max(hp[i],ep[i]) * rates[i]
+            elif i in hp:
+                relief += hp[i] * rates[i]
+            else:
+                relief += ep[i] * rates[i]
+        return relief, path
+
+    best_score = 0
+    best_path = []
+    
+    for i in valves:
+        new_time = time - (distance[node][i] + 1)
+        new_path = [*path, pathNode(i,new_time)]
+        
+        new_valves = valves - {i}
+        
+        bs,bp = dfsPart2(human_path,i, new_valves, new_time, new_path)
+        if bs > best_score:
+            best_score = bs
+            best_path = bp
+
+    return best_score, best_path
         
 
-time = 0
-pressure = 0
 
-current_valve = valves['AA']
 
-while time <= 30:
-    print(current_valve)
-    pressure += getPressureRelief()
-    time += 1
-    current_valve = takeAction(random_action=True)
+edges, rates, valves = initGraph(open('day16.txt'))
+print("Calculating min distances")
+distance = floydWarshall(edges,['AA',*valves])
+print("Calculating Part 1")
+part1_score, part1_path = dfsPart1('AA', valves, 30)
+print(f"part 1 : {part1_score}")
+
+print("Calculating Part 2")
+print("Calculating human path")
+human_score, human_path = dfsPart1('AA', valves, 26)
+
+print(f"part 2 human score: {human_score} path: {human_path}")
+print("Calculating Elephant Path")
+total_score, elephant_path = dfsPart2(human_path, 'AA', valves, 26 )
+print(f"Best score: {total_score}, elephant_path {elephant_path}")
+
+
+
+
+
+g = Network()
+for n in edges:
+    highlight = rates[n] > 0 or n == 'AA'
+    g.add_node(n,size=20 if highlight else 10, color = 'green' if highlight else 'red')
     
-print(pressure)
+for n1, n1_edges in edges.items():
+    for n2 in n1_edges:
+        g.add_edge(n1,n2,weight=1)
+    
+
+
+# g.toggle_physics(True)
+# g.show('day16.html')
