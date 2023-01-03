@@ -7,7 +7,7 @@ Number = namedtuple('Number', ['id', 'val'])
 def read_file(example=False):
     path = "example.txt" if example else "input.txt"
     with open(path) as file:
-        return [Number(id, int(value.strip())) for id, value in enumerate(file)]
+        return [Number(id, 811589153*int(value.strip())) for id, value in enumerate(file)]
 
 
 class CircularList():
@@ -73,7 +73,7 @@ class CircularList():
 def mix(c_list, instructions):
     for iteration, inst in enumerate(instructions):
         example.shift(inst)
-        if iteration % 100 == 0: print(f"[{iteration}/{len(instructions)}]")
+        if iteration % 1 == 0: print(f"[{iteration}/{len(instructions)}]")
 
 example_list = read_file()
 
@@ -81,7 +81,8 @@ index_item = example_list[[x.val for x in example_list].index(0)]
 
 example = CircularList(example_list,index_item)
 
-mix(example,example_list)
+for _ in range(10):
+    mix(example,example_list)
 
 answer = [example.zero_reference(1000),example.zero_reference(2000), example.zero_reference(3000)]
 print(sum(answer))
