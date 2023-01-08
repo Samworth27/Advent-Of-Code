@@ -2,7 +2,7 @@ from os import system
 from util.classes import MapTiles, PlayerTiles, PathTiles
 
 def read_file(example=False, test_case='example'):
-    path = f'./test_cases/tc_{test_case}.txt' if example else 'input.txt'
+    path = f'./test_cases/tc_{test_case}.txt' if example else './test_cases/input.txt'
     with open(path) as file:
         for line in file:
             yield line.strip('\n')
