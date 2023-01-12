@@ -1,2 +1,4 @@
 aoc
 lib
+__pycache__
+.vscode
