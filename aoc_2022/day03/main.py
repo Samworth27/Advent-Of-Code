@@ -1,5 +1,5 @@
 from util.inputs import parse_input
-from util.sliding_window import sliding_window
+from util.windows import tumbling_window
 
 def lookup_priority(item):
     return (ord(item)-96)%58
@@ -24,9 +24,9 @@ def part1(example=False):
         
 def part2(example=False):
     data = parse_input(example=example)
-    return sum([lookup_priority(common_value) for common_value in sliding_window(data,3,part2_window_function,lambda x: set(x))])
+    return sum([lookup_priority(common_value) for common_value in tumbling_window(data,3,part2_window_function,lambda x: set(x))])
     # score = 0
-    # for common_value in sliding_window(data,3, part2_window_function,lambda x: set(x)):
+    # for common_value in tumbling_window(data,3, part2_window_function,lambda x: set(x)):
     #     score += lookup_priority(common_value)
     # return score
 
