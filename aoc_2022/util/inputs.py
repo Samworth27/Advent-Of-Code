@@ -1,5 +1,8 @@
 import os
 
+def fields(line:str, positions:list[int]) -> list:
+    return [field for field, position in enumerate(line.strip()) if position in positions]
+
 def parse_input(example=False, test_case='example', function = lambda x: x):
     '''Reads and processes input files located in './test_cases'
     
