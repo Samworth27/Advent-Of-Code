@@ -7,7 +7,7 @@ after solving this problem
 
 ## Help
 
-```
+``` bash
 ls                      - List items
 mkdir [name]            - Creates new directory
 mkfile [size] [name]    - Creates new file
