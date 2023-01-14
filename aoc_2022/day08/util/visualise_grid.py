@@ -10,10 +10,7 @@ class Cell:
 
 
 def visualise_grid(data, cell_size=11, cell_gap=1, inner_percent=10,colour_mode="RGB",) -> Image:
-    
-    cell_gap = 1
-    inner_percent = 10
-    
+        
     inner_padding = ceil(cell_size*(inner_percent/2)/100)
     
     font = ImageFont.truetype('FreeMono.ttf', cell_size)
@@ -48,6 +45,10 @@ def visualise_grid(data, cell_size=11, cell_gap=1, inner_percent=10,colour_mode=
     return draw, output
 
 def draw_cell(image,x,y,cell,cell_size,cell_gap,inner_padding,font):
+    
+    if cell_size % 2 == 0:
+        cell_size += 1
+        
     x0 = x * cell_size + (cell_gap * (x+1))
     y0 = y * cell_size + (cell_gap * (y+1))
     x1 = x0 + cell_size - 1
