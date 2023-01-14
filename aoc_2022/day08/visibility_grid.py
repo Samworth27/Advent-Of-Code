@@ -26,7 +26,8 @@ class VisGrid(Grid):
         self._image, self._file = visualise_grid(data,*self._cell_info)
         self._file.save('./.output/start.png')
         
-        if self._recording_video:
+        if record_video:
+            self._recording_video = True
             first_frame = np.array(self._file)[:,:,::-1]
             width, height, _ = first_frame.shape
             self._video = cv2.VideoWriter('output.avi',cv2.VideoWriter_fourcc(*'MJPG'),60,(width, height))
@@ -40,7 +41,7 @@ class VisGrid(Grid):
         self._recording = False
        
     def record_state(self):
-        skip_frames = 10
+        skip_frames = 1
         if self._recording is False:
             return
 
