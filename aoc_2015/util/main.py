@@ -13,10 +13,10 @@ def test():
         print(f"Result: {result}, expected: {expected}, match = {result == expected}")
     
 def main():
-    for data in parse_input():
-        result1 = None
-        result2 = None
-        print(f"Part 1 result: {result1}, Part 2 result: {result2}")
+    data = parse_input
+    result1 = None
+    result2 = None
+    print(f"Part 1 result: {result1}, Part 2 result: {result2}")
     
 if __name__ == '__main__':
     test()
