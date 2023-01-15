@@ -3,11 +3,12 @@ from util.visualise_grid import Cell, visualise_grid
 import numpy as np
 import cv2
 
-GOOD = (0, 200, 50)
-BAD = (255, 0, 0)
+GOOD = (46, 204, 40)
+BAD = (245, 0, 20)
 HIGH1 = (255, 133, 82)
 HIGH2 = (233, 215, 88)
-fill_lookup = hsl_colour_range((84, 30, 40), (108, 40, 50), 10)
+
+fill_lookup = hsl_colour_range((60, 3, 17), (220, 15, 84), 10, return_RGB = True)
 
 def pick_colour(point):
     if point[1]:

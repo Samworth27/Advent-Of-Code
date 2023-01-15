@@ -32,9 +32,11 @@ def rgb_colour_range(rgb1, rgb2, steps):
     return [tuple(int(j*255) for j in i) for i in colour_range]
 
 def hsl_colour_range(hsl1, hsl2, steps):
+    
     hsl1 = hsl_int_to_decimal(hsl1)
+    
     hsl2 = hsl_int_to_decimal(hsl2)
-        
+    
     colour_range = []
     for i in range(steps + 1):
         t = i / steps

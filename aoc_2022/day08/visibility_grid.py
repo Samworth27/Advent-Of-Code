@@ -29,8 +29,8 @@ class VisGrid(Grid):
         if record_video:
             self._recording_video = True
             first_frame = np.array(self._file)[:,:,::-1]
-            width, height, _ = first_frame.shape
-            self._video = cv2.VideoWriter('output.avi',cv2.VideoWriter_fourcc(*'MJPG'),60,(width, height))
+            height, width, _ = first_frame.shape
+            self._video = cv2.VideoWriter('output.mp4',cv2.VideoWriter_fourcc(*'mp4v'),60,(width, height))
             self._video.write(first_frame)
         self._recording = True
         
@@ -39,6 +39,10 @@ class VisGrid(Grid):
             cv2.destroyAllWindows
             self._video.release()
         self._recording = False
+        
+    def sleep(self, frames):
+        for i in range(frames):
+            self.record_state()
        
     def record_state(self):
         skip_frames = 1
