@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 from math import floor, ceil
 
+OUTER_MARGIN = 5
 
 class Cell:
     def __init__(self, cell_value, cell_fill, cell_outline):
@@ -10,10 +11,7 @@ class Cell:
 
 
 def visualise_grid(data, cell_size=11, cell_gap=1, inner_percent=10,colour_mode="RGB",) -> Image:
-    
-    cell_gap = 1
-    inner_percent = 10
-    
+        
     inner_padding = ceil(cell_size*(inner_percent/2)/100)
     
     font = ImageFont.truetype('FreeMono.ttf', cell_size)
@@ -28,13 +26,13 @@ def visualise_grid(data, cell_size=11, cell_gap=1, inner_percent=10,colour_mode=
     num_cells_x = len(data[0])
     num_cells_y = len(data)
 
-    width = (num_cells_x * cell_size) + ((num_cells_x + 1) * cell_gap)
-    height = (num_cells_y * cell_size) + ((num_cells_y + 1) * cell_gap)
+    width = (2*OUTER_MARGIN) + (num_cells_x * cell_size) + ((num_cells_x + 1) * cell_gap) + 1
+    height = (2*OUTER_MARGIN) + (num_cells_y * cell_size) + ((num_cells_y + 1) * cell_gap) + 1
 
     output = Image.new(colour_mode, (width, height), (100,100,100))
     
     draw = ImageDraw.Draw(output)
-    
+    # draw.polygon([(0,0),(width-1,0),(width-1,height-1),(0,height-1)],fill=None,outline='black',width=1)
     # Checkerboard for debugging    
     # for x in range(height):
     #     for y in range(width):
@@ -43,13 +41,19 @@ def visualise_grid(data, cell_size=11, cell_gap=1, inner_percent=10,colour_mode=
     for y, row in enumerate(data):
         for x, cell in enumerate(row):
             draw_cell(draw,x,y,cell,cell_size,cell_gap,inner_padding,font)
+            
     
     
     return draw, output
 
 def draw_cell(image,x,y,cell,cell_size,cell_gap,inner_padding,font):
-    x0 = x * cell_size + (cell_gap * (x+1))
-    y0 = y * cell_size + (cell_gap * (y+1))
+    
+    
+    if cell_size % 2 == 0:
+        cell_size += 1
+        
+    x0 = x * cell_size + (cell_gap * (x+1)) + OUTER_MARGIN
+    y0 = y * cell_size + (cell_gap * (y+1)) + OUTER_MARGIN
     x1 = x0 + cell_size - 1
     y1 = y0 + cell_size - 1
     
