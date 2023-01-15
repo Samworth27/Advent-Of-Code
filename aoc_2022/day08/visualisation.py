@@ -5,7 +5,7 @@ import cv2
 
 GOOD = (46, 204, 40)
 BAD = (245, 0, 20)
-HIGH1 = (255, 133, 82)
+HIGH1 = (241, 82, 255)
 HIGH2 = (233, 215, 88)
 
 fill_lookup = hsl_colour_range((60, 3, 17), (220, 15, 84), 10, return_RGB = True)

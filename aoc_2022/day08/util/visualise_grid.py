@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 from math import floor, ceil
 
-OUTER_MARGIN = 10
+OUTER_MARGIN = 5
 
 class Cell:
     def __init__(self, cell_value, cell_fill, cell_outline):
