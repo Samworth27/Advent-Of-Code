@@ -15,7 +15,7 @@ class Vector:
         return Vector.from_complex(self._vector + vector2._vector)
     
     def __sub__(self,vector2:'Vector') -> 'Vector':
-        return Vector.from_complex(self._vector + vector2._vector)
+        return Vector.from_complex(self._vector - vector2._vector)
     
     def __mul__(self,vector2:'Vector') -> 'Vector':
         return Vector(self.x * vector2.x, self.y * vector2.y)
