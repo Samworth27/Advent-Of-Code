@@ -21,7 +21,7 @@ class Vector:
     def __sub__(self, vector2: 'Vector') -> 'Vector':
         return Vector.from_complex(self._vector - vector2._vector)
 
-    def __mul__(self, value: 'Vector') -> 'Vector':
+    def __mul__(self, value) -> 'Vector':
         if type(value) == Vector:
             return Vector(self.x * value.x, self.y * value.y)
         return Vector(self.x * value, self.y * value)
