@@ -98,13 +98,13 @@ def visualise_graph(graph, vis_config=default_config(), max_iterations = 1000, f
         for edge in graph.edges:
             node1, node2 = edge.nodes
             pygame.draw.line(screen, (50, 50, 50),
-                             node1.position.tuple, node2.position.tuple, 2)
+                             node1.position.tuple, node2.position.tuple, 1)
         
         draw_func(graph,screen)
         
             
         for node in graph.nodes:
-            pygame.draw.circle(screen, (255, 0, 0),
+            pygame.draw.circle(screen, (206, 190, 190),
                                node.position.tuple, vis_config['node_size'])
 
             

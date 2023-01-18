@@ -37,7 +37,7 @@ class Graph:
         self._init_frames = 30
 
     def step(self,window_size):
-        visual_factor = 4
+        visual_factor = 7
         stiffness = 0.7
         dampening = 2
         for edge in self.edges:

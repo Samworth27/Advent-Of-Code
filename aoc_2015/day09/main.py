@@ -146,8 +146,10 @@ def vis_step(graph: GeneticTSPGraph, surface):
     #         draw_path(surface, path)
     best = graph.best.copy()
     best_in_gen = graph.best_in_generation().copy()
-    best.colour = (0,100,255)
-    best_in_gen.colour = (255,0,255)
+    best.colour = (248, 51, 60 )
+    best_in_gen.colour = (97, 158, 109)
+    best.line_width = 15
+    best_in_gen.line_width = 3
     draw_path(surface,best_in_gen)
     draw_path(surface,best)
 
@@ -155,15 +157,16 @@ def vis_step(graph: GeneticTSPGraph, surface):
 
 def main():
 
-    GENERATION_SIZE = 30
-    MAX_ITERATIONS = 50
-    FPS = 2
+    GENERATION_SIZE = 50
+    MAX_ITERATIONS = 1000
+    FPS = 120
     
     config = default_config()
     config['window_size'] = (WINDOW_WIDTH,WINDOW_HEIGHT)
     config['step_func'] = graph_step
     config['draw_func'] = vis_step
     config['mouse1_func'] = left_click
+    config['node_size'] = 20
     
     
     data = parse_input(function=parse_func)
