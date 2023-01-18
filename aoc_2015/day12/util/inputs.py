@@ -1,5 +1,4 @@
 import os
-from collections.abc import Generator
 
 def fields(line:str, positions:list[int] = None, split_char=' ', field_func = lambda x: x) -> list:
     return [field_func(field) for position, field in enumerate(line.split(split_char)) if positions is None or position in positions]
@@ -15,7 +14,7 @@ def parse_input(example=False, test_case='example', function = lambda x: x):
     return [function(row) for row in read_file(example, test_case)]
 
 
-def read_file(example=False, test_case='example') -> Generator[str]:
+def read_file(example=False, test_case='example'):
     '''Reads files located at "./test_cases"
     
     Parameters:
