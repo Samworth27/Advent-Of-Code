@@ -2,7 +2,7 @@ import pygame
 from util.vector import Vector
 from copy import copy
 from random import randint, choice, shuffle
-from graph import Node, Edge, Path
+from util.graph import Node, Edge, Path
 from util.windows import sliding_window
 
 
