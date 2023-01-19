@@ -1,6 +1,6 @@
 from util.inputs import parse_input, fields
 from util.graph import Node, Edge
-from graph_vis import visualise_graph, random_position, default_config, draw_path, random_path
+from util.graph import visualise_graph, random_position, default_config, draw_path, random_path
 from random import randint
 from util.graph.tsp_graph import GeneticTSPGraph
 
