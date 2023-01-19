@@ -1,5 +1,5 @@
-from util.inputs import parse_input
-from util.windows import sliding_window
+from aoc_util.inputs import parse_input
+from aoc_util.windows import sliding_window
 
 def is_vowel(char):
     return char in ('a', 'e', 'i', 'o', 'u')

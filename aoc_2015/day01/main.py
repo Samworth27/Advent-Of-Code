@@ -1,4 +1,4 @@
-from util.inputs import parse_input
+from aoc_util.inputs import parse_input
 
 def part1(input:str):
     floor_ = 0

@@ -1,10 +1,10 @@
-from util.inputs import parse_input, fields
-from util.vector import Vector
+from aoc_util.inputs import parse_input, fields
+from aoc_util.vector import Vector
 import pygame
 import numpy as np
 from random import randint, choice, shuffle, random
 import math 
-from util.windows import sliding_window
+from aoc_util.windows import sliding_window
 WINDOW_SIZE = (1000,1000)
 NODE_WIDTH = 30
 

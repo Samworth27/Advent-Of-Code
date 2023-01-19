@@ -1,4 +1,4 @@
-from util.inputs import parse_input, fields
+from aoc_util.inputs import parse_input, fields
 import pygame
 from random import getrandbits
 import numpy as np

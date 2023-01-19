@@ -1,4 +1,4 @@
-from util.inputs import parse_input
+from aoc_util.inputs import parse_input
 from hashlib import md5
 
 

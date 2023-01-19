@@ -1,8 +1,7 @@
-from util.inputs import parse_input, fields
-from util.graph import Node, Edge
-from util.graph import visualise_graph, random_position, default_config, draw_path, random_path
+from aoc_util.inputs import parse_input, fields
+from aoc_util.graph_modules import Node, Edge, visualise_graph, random_position, default_config, draw_path, random_path, GeneticTSPGraph
 from random import randint
-from util.graph.tsp_graph import GeneticTSPGraph
+
 
 WINDOW_WIDTH = 1000
 WINDOW_HEIGHT = 1000

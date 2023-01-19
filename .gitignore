@@ -2,3 +2,4 @@ aoc.venv
 lib
 __pycache__
 .vscode
+.modules

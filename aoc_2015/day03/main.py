@@ -1,5 +1,5 @@
-from util.inputs import parse_input
-from util.vector import Vector
+from aoc_util.inputs import parse_input
+from aoc_util.vector import Vector
 
 move_lookup = {
     '^': Vector.NORTH,
