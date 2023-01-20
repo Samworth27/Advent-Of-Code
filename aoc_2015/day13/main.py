@@ -1,6 +1,8 @@
 from aoc_util.inputs import parse_input, fields
 from aoc_util.graph_modules import Graph, Node, Edge, make_key, visualise_graph, random_position
 
+DAY = 13
+YEAR = 2015
 
 def field_func(x):
     try:
@@ -45,7 +47,7 @@ def prep_data(data):
 
 
 def main():
-    data = parse_input(False, function=parse_func)
+    data = parse_input((DAY,YEAR), parse_func)
     nodes, edges = prep_data(data)
     graph = Graph(nodes,edges)
     visualise_graph(graph)

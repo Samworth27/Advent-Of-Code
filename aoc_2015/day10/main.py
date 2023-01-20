@@ -1,6 +1,9 @@
 from aoc_util.inputs import parse_input
 import re
 
+DAY = 10
+YEAR = 2015
+
 def look_and_say(input):
     groups = re.findall(r"((.)\2+)|(\d)", input)
     output = ''
@@ -13,7 +16,7 @@ def look_and_say(input):
         
 
 def test():
-    for data, expected in zip(parse_input(True,'example'),parse_input(True,'expected')):
+    for data, expected in zip(parse_input('example'),parse_input('expected')):
         result = look_and_say(data)
         print(f"Result: {result}, expected: {expected}, match = {result == expected}")
     
@@ -25,11 +28,11 @@ def look_and_say_n(input,steps):
     return input
 
 def main():
-    data = parse_input()[0]
+    data = parse_input((DAY,YEAR))[0]
     result1 = len(look_and_say_n(data,40))
     result2 = len(look_and_say_n(data,50))
     print(f"Part 1 result: {result1}, Part 2 result: {result2}")
     
 if __name__ == '__main__':
-    # test()
+    test()
     main()

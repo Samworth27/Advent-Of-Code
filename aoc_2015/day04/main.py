@@ -1,6 +1,8 @@
 from aoc_util.inputs import parse_input
 from hashlib import md5
 
+DAY = 4
+YEAR = 2015
 
 def process(input:str):
     five = '00000'
@@ -22,12 +24,12 @@ def process(input:str):
         i += 1
 
 def test():
-    for data, expected1 in zip(parse_input(True,'example'),parse_input(True,'expected')):
+    for data, expected1 in zip(parse_input('example'),parse_input('expected')):
         result1, result2 = process(data)
         print(f"Part 1 result: {result1}, expected: {expected1}, match = {result1 == int(expected1)}")
     
 def main():
-    for data in parse_input():
+    for data in parse_input((DAY,YEAR)):
         result1,result2 = process(data)
         print(f"Part 1 result: {result1}, Part 2 result: {result2}")
     

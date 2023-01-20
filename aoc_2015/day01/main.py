@@ -1,3 +1,5 @@
+DAY, YEAR = 1,2015
+
 from aoc_util.inputs import parse_input
 
 def part1(input:str):
@@ -13,16 +15,16 @@ def part1(input:str):
     
 
 def test():
-    for data, expected_result in zip(parse_input(True,'example'),parse_input(True,'example_expected',int)):
+    for data, expected_result in zip(parse_input('example'),parse_input('example_expected',int)):
         result, basement = part1(data)
         print(f"Result: {result}, expected: {expected_result}, match = {result == expected_result}")
     
 def main():
-    for data in parse_input():
+    for data in parse_input((1,2015)):
         result, first_visit = part1(data)
         print(f"Part 1 result: {result}, Part 2 result: {first_visit}")
         return part1(data)
-    
+
 if __name__ == '__main__':
     test()
     main()

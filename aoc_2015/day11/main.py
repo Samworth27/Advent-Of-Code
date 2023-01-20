@@ -2,6 +2,9 @@ from aoc_util.inputs import parse_input
 from aoc_util.windows import sliding_window
 import re
 
+DAY = 11
+YEAR = 2015
+
 DISALLOWED_CHARACTERS = set(['i', 'o', 'l'])
 
 
@@ -52,7 +55,7 @@ def increment_password(current_password):
 
 
 def main():
-    result1 = increment_password('vzbxkghb')
+    result1 = increment_password(parse_input((DAY,YEAR))[0])
     result2 = increment_password(result1)
     print(f"Part 1 result: {result1}, Part 2 result: {result2}")
 

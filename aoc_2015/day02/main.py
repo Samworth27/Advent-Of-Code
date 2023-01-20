@@ -1,5 +1,7 @@
 from aoc_util.inputs import parse_input, fields
 
+DAY = 2
+YEAR = 2015
 
 def fields_function(x):
     return tuple(fields(x, None, 'x', int))
@@ -28,7 +30,7 @@ def process(width, length, height):
 
 
 def test1():
-    for data, (expected1, expected2) in zip(parse_input(True, 'example', fields_function), parse_input(True, 'expected', function=lambda x: tuple(fields(x, None, ' ', int)))):
+    for data, (expected1, expected2) in zip(parse_input('example', fields_function), parse_input('expected', parse_func=lambda x: tuple(fields(x, None, ' ', int)))):
         result1, result2 = process(*data)
         print(
             f"Part 1 Result: {result1}, expected: {expected1}, match = {result1 == expected1}")
@@ -38,7 +40,7 @@ def test1():
 
 def main():
     results = list(zip(*[process(*data)
-                  for data in parse_input(function=fields_function)]))
+                  for data in parse_input((DAY,YEAR),parse_func=fields_function)]))
     results1 = sum(results[0])
     results2 = sum(results[1])
 

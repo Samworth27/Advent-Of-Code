@@ -3,6 +3,10 @@ import pygame
 from random import getrandbits
 import numpy as np
 
+
+DAY = 6
+YEAR = 2015
+
 WINDOW_SIZE = (1000, 1000)
 
 ON = 1
@@ -69,7 +73,7 @@ def main(data:list, part1=True):
         pygame.display.flip()
         clock.tick(120)
         
-    print(sum(sum(array)))
+    return int(sum(sum(array)))
 
     pygame.quit()
 
@@ -87,7 +91,7 @@ def parse_function(line):
 
 if __name__ == '__main__':
 
-    data = parse_input(function=parse_function)
+    data = parse_input((DAY,YEAR),parse_function)
     print(f"Part 1 result = {main(data)}")
-    data = parse_input(function=parse_function)
+    data = parse_input((DAY,YEAR),parse_function)
     print(f"Part 2 result = {main(data, part1=False)}")

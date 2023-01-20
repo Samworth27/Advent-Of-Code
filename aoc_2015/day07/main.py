@@ -1,8 +1,8 @@
 from aoc_util.inputs import parse_input, fields
-from components.gates import BitwiseANDGate, BitwiseORGate, BitwiseShiftLeftGate, BitwiseShiftRightGate
-from components.wire import Wire
-from components.constant import Constant
 from circuit import Circuit
+
+DAY = 7
+YEAR = 2015
 
 def build_circuit(data):
     new_circuit = Circuit()
@@ -11,13 +11,13 @@ def build_circuit(data):
     return new_circuit
 
 def test():
-    test_circuit = build_circuit(parse_input(example=True, function=lambda data:[x for x in fields(data) if x != '->']))
+    test_circuit = build_circuit(parse_input('example', lambda data:[x for x in fields(data) if x != '->']))
     results1 = test_circuit.wires
-    for (key, expected) in parse_input(example=True, test_case='expected', function=fields):
+    for (key, expected) in parse_input('expected',fields):
         print(f"Wire {key} = {results1[key].value}, expected: {expected}. Correct = {results1[key].value == int(expected)}")
     
 def main():
-    data = parse_input(function=lambda data:[x for x in fields(data) if x != '->'])
+    data = parse_input((DAY,YEAR),lambda data:[x for x in fields(data) if x != '->'])
     part1_circuit = build_circuit(data)
     a_value = part1_circuit.get_value('a')
     print(f"Part 1 result: {a_value}")
@@ -28,5 +28,5 @@ def main():
 
     
 if __name__ == '__main__':
-    # test()
+    test()
     main()

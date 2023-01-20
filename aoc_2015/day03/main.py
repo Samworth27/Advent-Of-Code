@@ -1,6 +1,9 @@
 from aoc_util.inputs import parse_input
 from aoc_util.vector import Vector
 
+DAY = 3
+YEAR = 2015
+
 move_lookup = {
     '^': Vector.NORTH,
     '>': Vector.EAST,
@@ -33,14 +36,14 @@ def part2(input):
     return len(visited)
 
 def test():
-    for data, (expected1, expected2) in zip(parse_input(True,'example'),parse_input(True,'expected',lambda x:x.split())):
+    for data, (expected1, expected2) in zip(parse_input('example'),parse_input('expected',lambda x:x.split())):
         result1 = part1(data)
         result2 = part2(data)
         print(f"Result 1: {result1}, expected: {expected1}, match = {result1 == int(expected1)}")
         print(f"Result 2: {result2}, expected: {expected2}, match = {result2 == int(expected2)}")
     
 def main():
-    for data in parse_input():
+    for data in parse_input((DAY,YEAR)):
         result1 = part1(data)
         result2 = part2(data)
         print(f"Part 1 result: {result1}, Part 2 result: {result2}")

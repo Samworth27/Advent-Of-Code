@@ -1,10 +1,13 @@
 from aoc_util.inputs import parse_input, fields
 from aoc_util.vector import Vector
 import pygame
-import numpy as np
-from random import randint, choice, shuffle, random
+from random import randint, random
 import math 
 from aoc_util.windows import sliding_window
+
+DAY = 9
+YEAR = 2015
+
 WINDOW_SIZE = (1000,1000)
 NODE_WIDTH = 30
 
@@ -204,10 +207,7 @@ def main(distances:dict, cities:set, longest=False):
         
         print([node.name for node in best_guess],global_length)
 
-        
-        
-        
-        
+
         
         # Draw best guess
         for node1,node2 in sliding_window(best_guess,2):
@@ -239,9 +239,7 @@ def main(distances:dict, cities:set, longest=False):
 
 
 if __name__ == '__main__':
-    distances, cities = build_distance_lookup(parse_input(
-        function=lambda x: fields(x, [0, 2, 4], field_func=field_func)))
-    
-    print(path_length(['Norrath','Faerun','Straylight','Tristram','AlphaCentauri','Snowdin','Arbre','Tambi'],distances))
-    # part1 = main(distances, cities)
-    # part2 = main(distances, cities, True)
+    distances, cities = build_distance_lookup(parse_input((DAY,YEAR),lambda x: fields(x, [0, 2, 4], field_func=field_func)))
+
+    part1 = main(distances, cities)
+    part2 = main(distances, cities, True)

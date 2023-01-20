@@ -1,6 +1,9 @@
 from aoc_util.inputs import parse_input
 from aoc_util.windows import sliding_window
 
+DAY = 5
+YEAR = 2015
+
 def is_vowel(char):
     return char in ('a', 'e', 'i', 'o', 'u')
 
@@ -42,11 +45,9 @@ def string_nice2(input):
         if contains_palindrome and contains_pairs:
             return True
     return False
-        
-
 
 def test():
-    for data, (expected1, expected2) in zip(parse_input(True, 'example'), parse_input(True, 'expected', lambda x: tuple(y=='True' for y in x.split()))):
+    for data, (expected1, expected2) in zip(parse_input('example'), parse_input('expected', lambda x: tuple(y=='True' for y in x.split()))):
         result1 = string_nice1(data)
         print(f"Part 1 result: {result1}, expected: {expected1}, match = {result1 == expected1}")
         result2 = string_nice2(data)
@@ -54,7 +55,7 @@ def test():
 
 
 def main():
-    data = parse_input()
+    data = parse_input((DAY,YEAR))
     result1 = sum(string_nice1(string_) for string_ in data)
     result2 = sum(string_nice2(string_) for string_ in data)
     print(f"Part 1 result: {result1}, Part 2 result: {result2}")
